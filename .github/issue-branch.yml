@@ -1,1 +1,2 @@
+gitSafeReplacementChar: '-'
 branchName: '${issue.title,}'
