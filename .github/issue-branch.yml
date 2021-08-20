@@ -10,3 +10,7 @@ branches:
     prefix: doc/${issue.number}/
   - label: '*'
     skip: true
+    
+openDraftPR: true
+copyIssueLabelsToPR: true
+copyIssueAssigneeToPR: true
