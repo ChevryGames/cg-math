@@ -14,3 +14,5 @@ branches:
 openDraftPR: true
 copyIssueLabelsToPR: true
 copyIssueAssigneeToPR: true
+
+commentMessage: 'Branch ${branchName} and PR #{pull_request.number} created for issue #${issue.number}.'
