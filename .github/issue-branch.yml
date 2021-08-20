@@ -1,9 +1,1 @@
-defaultBranch: 'dev'
-branches:
-  - label: feature
-    prefix: feature/
-  - label: bug
-    prefix: bugfix/
-  - label: '*'
-    skip: true
-branchName: '${issue.number}-${issue.title}'
+branchName: '${issue.title,}'
