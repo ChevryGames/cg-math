@@ -8,6 +8,8 @@ branches:
     prefix: fix/${issue.number}/
   - label: doc
     prefix: doc/${issue.number}/
+  - label: QA
+    prefix: qa/${issue.number}/
   - label: '*'
     skip: true
     
