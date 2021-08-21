@@ -17,4 +17,4 @@ openDraftPR: true
 copyIssueLabelsToPR: true
 copyIssueAssigneeToPR: true
 
-commentMessage: 'Branch [`${branchName}`](${repository_url}/tree/${branchName}) created for issue #${issue.number}.'
+commentMessage: 'Branch [`${branchName}`](${issue.repository_url}/tree/${branchName}) created for issue #${issue.number}.'
