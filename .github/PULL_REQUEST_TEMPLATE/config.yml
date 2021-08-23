@@ -1,5 +1,0 @@
-blank_issues_enabled: false
-contact_links:
-  - name: Dependent Pull Request
-    about: Create a pull request with other issues and PRs as dependencies
-    url: https://github.com/ChevryGames/cg-math/compare/dev...{branchName}?template=dependent-pull-request.md&projects=ChevryGames%2Fcg-math%2F1
