@@ -3,7 +3,8 @@
 
 ### C ###
 # Prerequisites
-*.d
+# Bug: Ignore D (dlang) source files.
+# *.d
 
 # Object files
 *.o
