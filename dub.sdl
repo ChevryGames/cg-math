@@ -3,4 +3,4 @@ authors "Benoît Dubreuil"
 homepage "https://github.com/ChevryGames/cg-math"
 
 targetType "library"
-toolchainRequirements dub=">=1.26.1" frontend="~>2.097.2"
+toolchainRequirements dub=">=1.26.1" frontend="~>2.097"
