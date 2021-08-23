@@ -1,3 +1,2 @@
 name "cg-math"
 authors "Benoît Dubreuil"
-targetType "executable"
