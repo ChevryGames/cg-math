@@ -1,3 +1,6 @@
 name "cg-math"
 authors "Benoît Dubreuil"
-targetType "executable"
+homepage "https://github.com/ChevryGames/cg-math"
+
+targetType "library"
+toolchainRequirements dub=">=1.26.1" frontend="~>2.097"
