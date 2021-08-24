@@ -1,12 +1,16 @@
 /classes
 
+# Bug: The C programming language part ignore `.d` source files that are required for the D (dlang) programming language.
+!*.d
+
+
 # Created by https://www.toptal.com/developers/gitignore/api/d,c,c++,windows,linux,macos,intellij+all,vs,visualstudiocode,vim,git
 # Edit at https://www.toptal.com/developers/gitignore?templates=d,c,c++,windows,linux,macos,intellij+all,vs,visualstudiocode,vim,git
 
 ### C ###
 # Prerequisites
-# Bug: Ignore D (dlang) source files.
-# *.d
+# Bug: The C programming language part ignore `.d` source files that are required for the D (dlang) programming language.
+*.d
 
 # Object files
 *.o
