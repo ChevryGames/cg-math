@@ -5,23 +5,23 @@ module dummy;
 
 struct Dummy
 {
-    static const int MAX_VAR_INT = 3;
+    static const int MAX_MEMBER_INT = 3;
 
-    int dummyVar1;
-    string dummyVar2;
+    int memberInt;
+    string memberStr;
 
-    this(int dummyVar1, string dummyVar2) nothrow
+    this(int memberInt, string memberStr) nothrow
     in
     {
-        assert(dummyVar1 > MAX_VAR_INT);
+        assert(memberInt > MAX_MEMBER_INT);
     }
     out
     {
-        assert(this.dummyVar1 == dummyVar1);
+        assert(this.memberInt == memberInt);
     }
     do
     {
-        this.dummyVar1 = dummyVar1;
-        this.dummyVar2 = dummyVar2;
+        this.memberInt = memberInt;
+        this.memberStr = memberStr;
     }
 }
