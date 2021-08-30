@@ -28,6 +28,11 @@ struct Dummy
 
     int doStuff() pure nothrow
     {
-        return this.memberInt - 1;
+        auto result = this.memberInt - 1;
+
+        if (result <= MAX_MEMBER_INT)
+            result = 1 + MAX_MEMBER_INT;
+
+        return result;
     }
 }
