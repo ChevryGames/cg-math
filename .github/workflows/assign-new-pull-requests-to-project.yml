@@ -15,7 +15,6 @@ jobs:
         uses: srggrs/assign-one-project-github-action@1.2.1
         if: |
           github.event.action == 'opened' &&
-          ! contains(github.event.issue.labels.*.name, 'invalid') &&
           ! contains(github.event.pull_request.labels.*.name, 'invalid')
         with:
           project: 'https://github.com/ChevryGames/cg-math/projects/1'
