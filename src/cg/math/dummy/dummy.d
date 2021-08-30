@@ -25,4 +25,9 @@ struct Dummy
         this.memberInt = memberInt;
         this.memberStr = memberStr;
     }
+
+    int doStuff() pure nothrow
+    {
+        return this.memberInt - 1;
+    }
 }
