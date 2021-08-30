@@ -2,17 +2,17 @@ gitSafeReplacementChar: '-'
 branchName: '${issue.title,}'
 
 branches:
-  - label: feature
-    prefix: feature/${issue.number}/
   - label: bug
     prefix: fix/${issue.number}/
+  - label: feature
+    prefix: feature/${issue.number}/
   - label: doc
     prefix: doc/${issue.number}/
   - label: QA
     prefix: qa/${issue.number}/
   - label: '*'
     skip: true
-    
+
 openDraftPR: true
 copyIssueDescriptionToPR: true
 copyIssueLabelsToPR: true
