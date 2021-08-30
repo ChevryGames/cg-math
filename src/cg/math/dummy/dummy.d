@@ -18,6 +18,7 @@ struct Dummy
     out
     {
         assert(this.memberInt == memberInt);
+        assert(this.memberStr == memberStr);
     }
     do
     {
