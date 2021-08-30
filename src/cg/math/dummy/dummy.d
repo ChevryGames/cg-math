@@ -5,6 +5,9 @@ module dummy;
 
 struct Dummy
 {
+    // TODO: Why do I need to repeat those? Aren't the formers still effective for inner scopes?
+@safe:
+@nogc:
     static const int MAX_MEMBER_INT = 3;
 
     int memberInt;
