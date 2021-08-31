@@ -1,13 +1,7 @@
 module dummy;
 
-@safe:
-@nogc:
-
-struct Dummy
+@safe @nogc public struct Dummy
 {
-    // TODO: Why do I need to repeat those? Aren't the formers still effective for inner scopes?
-@safe:
-@nogc:
     static const int MAX_MEMBER_INT = 3;
 
     int memberInt;
@@ -23,7 +17,7 @@ struct Dummy
     *     this.memberStr = memberStr;
     * }
     */
-    this(int memberInt, string memberStr) nothrow
+    this(int memberInt, string memberStr) nothrow @safe @nogc
     in
     {
         assert(memberInt > MAX_MEMBER_INT);
@@ -39,7 +33,7 @@ struct Dummy
         this.memberStr = memberStr;
     }
 
-    int doStuff() pure nothrow
+    int doStuff() pure nothrow @safe @nogc
     {
         auto result = this.memberInt - 1;
 
