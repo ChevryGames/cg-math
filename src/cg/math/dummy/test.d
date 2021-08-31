@@ -8,6 +8,9 @@ version (unittest)
 {
     import dummy;
 
+@safe:
+@nogc:
+
     /// Test [cg.math.dummy.dummy.Dummy.doStuff()]
     unittest
     {
