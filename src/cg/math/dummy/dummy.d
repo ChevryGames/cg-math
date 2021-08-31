@@ -13,6 +13,16 @@ struct Dummy
     int memberInt;
     string memberStr;
 
+    /*
+    * Newest version layout:
+    * in (memberInt > MAX_MEMBER_INT)
+    * out (; this.memberInt == memberInt)
+    * out (; this.memberStr == memberStr)
+    * {
+    *     this.memberInt = memberInt;
+    *     this.memberStr = memberStr;
+    * }
+    */
     this(int memberInt, string memberStr) nothrow
     in
     {
