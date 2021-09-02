@@ -1,4 +1,4 @@
-name: Build Project From Source Files
+name: Build D (dlang) Source Files
 
 on:
   pull_request:
@@ -7,6 +7,7 @@ on:
 
 jobs:
   build:
+    name: Dub Build
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
