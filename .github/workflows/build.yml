@@ -17,5 +17,5 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-      - name: Checkout
+      - name: Checkout PR
         uses: actions/checkout@v2
