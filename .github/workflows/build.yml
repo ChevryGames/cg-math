@@ -23,7 +23,15 @@ jobs:
         id: read-matrix
         working-directory: ./.github/workflows
         run: |
-          echo "::set-output name=matrix-json::$(cat build-matrix.json)"
+          json="$(cat build-matrix.json)"
+
+          # https://github.community/t/set-output-truncates-multiline-strings/16852/3
+          # The following lines are only required for multi line json
+          json="${json//'%'/'%25'}"
+          json="${json//$'\n'/'%0A'}"
+          json="${json//$'\r'/'%0D'}"
+
+          echo "::set-output name=matrix-json::$json"
 
   build:
     name: Dub build
