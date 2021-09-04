@@ -16,8 +16,11 @@ jobs:
       matrix-json: ${{ steps.read-matrix.outputs.matrix-json }}
 
     steps:
-      - name: Checkout PR
-        uses: actions/checkout@v2
+      - name: Checkout PR `.github` directory
+        uses: snow-actions/sparse-checkout@v1.1.0
+        with:
+          patterns: |
+            .github
 
       - name: Read build Matrix
         id: read-matrix
