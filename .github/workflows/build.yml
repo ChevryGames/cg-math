@@ -37,6 +37,32 @@ jobs:
 
           echo "::set-output name=matrix-json::$json"
 
+
+  upgrade-d-sources:
+    name: Upgrade D sources
+    needs: setup-build-matrix
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install D compiler
+        uses: dlang-community/setup-dlang@v1
+        with:
+          dc: dmd-latest
+
+      - name: Fetch dfix
+        # https://github.com/dlang-community/dfix
+        run: dub fetch dfix --cache=user
+
+      - name: Build dfix
+        run: dub build dfix --build=release --non-interactive --cache=user
+
+      - name: Checkout PR
+        uses: actions/checkout@v2
+
+      - name: Run dfix
+        run: dub run --build=release --non-interactive --cache=user
+
+
   build:
     name: Build
     needs: upgrade-d-sources
