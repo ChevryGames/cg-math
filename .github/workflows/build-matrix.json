@@ -4,7 +4,7 @@
     "windows-latest",
     "macOS-latest"
   ],
-  "compiler": [
+  "dc": [
     "dmd-latest",
     "ldc-latest"
   ]
