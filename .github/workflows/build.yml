@@ -4,8 +4,25 @@ on:
   pull_request:
     types: [ synchronize ]
 
+defaults:
+  run:
+    shell: bash
 
 jobs:
+  setup-build-matrix:
+    runs-on: ubuntu-latest
+
+    outputs:
+      matrix-json: ${{ steps.read-matrix.outputs.matrix-json }}
+
+    steps:
+      - name: Read build Matrix
+        id: read-matrix
+        working-directory: ./.github/workflows
+        run: |
+          matrix=$( cat build-matrix.json )
+          echo "::set-output name=matrix-json::$matrix"
+
   build:
     name: Dub build
 
