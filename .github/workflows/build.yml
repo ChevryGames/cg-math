@@ -47,13 +47,22 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-      - name: Checkout PR
-        uses: actions/checkout@v2
+      # - name: Cache D compiler
+      #   id: cache-d-compiler
+      #   uses: actions/cache@v2
+      #   with:
+      #     path: prime-numbers
+      #     key: ${{ runner.os }}-primes
 
       - name: Install D compiler
         uses: dlang-community/setup-dlang@v1
         with:
           dc: ${{ matrix.dc }}
+
+      - name: DEBUG FILES
+        run: |
+          ls -la
+          exit 1
 
   build:
     name: Build
