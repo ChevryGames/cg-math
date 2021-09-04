@@ -24,7 +24,7 @@ jobs:
         working-directory: ./.github/workflows
         run: |
           matrix=$( cat build-matrix.json )
-          echo "::set-output name=matrix-json::${ matrix }"
+          echo "::set-output name=matrix-json::${matrix}"
 
   build:
     name: Dub build
