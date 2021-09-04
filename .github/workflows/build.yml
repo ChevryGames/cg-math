@@ -62,6 +62,8 @@ jobs:
       - name: DEBUG FILES
         run: |
           ls -la
+          pwd
+          find . -type d -print | sed -e 's;/*/;|;g;s;|; |;g'
           exit 1
 
   build:
