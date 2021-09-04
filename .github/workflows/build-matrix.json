@@ -1,18 +1,27 @@
 {
   "include": [
     {
-      "os": "ubuntu-latest"
-    },
-    {
-      "os": "windows-latest"
-    },
-    {
-      "os": "macOS-latest"
-    },
-    {
+      "os": "ubuntu-latest",
       "compiler": "dmd-latest"
     },
     {
+      "os": "windows-latest",
+      "compiler": "dmd-latest"
+    },
+    {
+      "os": "macOS-latest",
+      "compiler": "dmd-latest"
+    },
+    {
+      "os": "ubuntu-latest",
+      "compiler": "ldc-latest"
+    },
+    {
+      "os": "windows-latest",
+      "compiler": "ldc-latest"
+    },
+    {
+      "os": "macOS-latest",
       "compiler": "ldc-latest"
     }
   ]
