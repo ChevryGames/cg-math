@@ -1,0 +1,19 @@
+{
+  "include": [
+    {
+      "os": "ubuntu-latest"
+    },
+    {
+      "os": "windows-latest"
+    },
+    {
+      "os": "macOS-latest"
+    },
+    {
+      "compiler": "dmd-latest"
+    },
+    {
+      "compiler": "ldc-latest"
+    }
+  ]
+}
