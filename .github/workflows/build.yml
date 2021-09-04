@@ -23,7 +23,7 @@ jobs:
         id: read-matrix
         working-directory: ./.github/workflows
         run: |
-          matrix=$( cat build-matrix.json )
+          matrix=$(cat build-matrix.json)
           echo "::set-output name=matrix-json::${matrix}"
 
   build:
