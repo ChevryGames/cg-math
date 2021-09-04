@@ -47,7 +47,7 @@ jobs:
       - name: Install D compiler
         uses: dlang-community/setup-dlang@v1
         with:
-          dc: dmd-latest
+          compiler: dmd-latest
 
       - name: Fetch dfix
         run: dub fetch dfix --cache=user
@@ -79,7 +79,7 @@ jobs:
       - name: Install D compiler
         uses: dlang-community/setup-dlang@v1
         with:
-          dc: ${{ matrix.dc }}
+          compiler: ${{ matrix.compiler }}
 
       - name: Dub build
         run: dub build
