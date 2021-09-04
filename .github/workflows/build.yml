@@ -16,6 +16,9 @@ jobs:
       matrix-json: ${{ steps.read-matrix.outputs.matrix-json }}
 
     steps:
+      - name: Checkout PR
+        uses: actions/checkout@v2
+        
       - name: Read build Matrix
         id: read-matrix
         working-directory: ./.github/workflows
