@@ -58,6 +58,11 @@ jobs:
       - name: Checkout PR
         uses: actions/checkout@v2
 
+      - name: DEBUG
+        run: |
+          ls -la
+          pwd
+
       - name: Run dfix
         run: dub run dfix --build=release --non-interactive --cache=user
 
