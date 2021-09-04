@@ -36,9 +36,8 @@ jobs:
 
           echo "::set-output name=matrix-json::$json"
 
-  setup-dev-env:
-    # TODO: Cache
-    name: Setup development environment
+  build:
+    name: Build
     needs: setup-build-matrix
 
     strategy:
@@ -47,34 +46,10 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-      # - name: Cache D compiler
-      #   id: cache-d-compiler
-      #   uses: actions/cache@v2
-      #   with:
-      #     path: prime-numbers
-      #     key: ${{ runner.os }}-primes
-
       - name: Install D compiler
         uses: dlang-community/setup-dlang@v1
         with:
           dc: ${{ matrix.dc }}
 
-      - name: DEBUG FILES
-        run: |
-          ls -la
-          pwd
-          find / -type d -print | sed -e 's;/*/;|;g;s;|; |;g'
-          exit 1
-
-  build:
-    name: Build
-    needs: setup-dev-env
-
-    strategy:
-      matrix: ${{ fromJson(needs.setup-build-matrix.outputs.matrix-json) }}
-
-    runs-on: ${{ matrix.os }}
-
-    steps:
       - name: Dub build
         run: dub build
