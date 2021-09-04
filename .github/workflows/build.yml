@@ -1,4 +1,4 @@
-name: Build D (dlang) Source Files
+name: Build D sources
 
 on:
   pull_request:
@@ -22,7 +22,7 @@ jobs:
           patterns: |
             .github
 
-      - name: Read build Matrix
+      - name: Read build matrix
         id: read-matrix
         working-directory: ./.github/workflows
         run: |
@@ -36,8 +36,12 @@ jobs:
 
           echo "::set-output name=matrix-json::$json"
 
+  setup-dev-env:
+    name: Setup development environment
+    needs: setup-build-matrix
+
   build:
-    name: Dub build
+    name: Build
     needs: setup-build-matrix
 
     strategy:
@@ -54,5 +58,5 @@ jobs:
         with:
           compiler: ${{ matrix.compiler }}
 
-      - name: Build
+      - name: Dub build
         run: dub build
