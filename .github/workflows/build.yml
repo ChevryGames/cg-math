@@ -58,13 +58,8 @@ jobs:
       - name: Checkout PR
         uses: actions/checkout@v2
 
-      - name: DEBUG
-        run: |
-          ls -la
-          pwd
-
       - name: Run dfix
-        run: dub run dfix --build=release --non-interactive --cache=user
+        run: dub run dfix --build=release --non-interactive --cache=user -- .
 
       - name: Commit and push changes
         uses: EndBug/add-and-commit@v7
