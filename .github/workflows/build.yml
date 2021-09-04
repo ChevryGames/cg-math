@@ -25,11 +25,10 @@ jobs:
 
   build:
     name: Dub build
+    needs: setup-build-matrix
 
     strategy:
-      matrix:
-        os: [ ubuntu-latest, windows-latest, macOS-latest ]
-        compiler: [ dmd-latest, ldc-latest ]
+      matrix: ${{ fromJson(needs.setup-build-matrix.outputs.matrix-json) }}
 
     runs-on: ${{ matrix.os }}
 
