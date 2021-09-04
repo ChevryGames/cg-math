@@ -37,11 +37,8 @@ jobs:
           echo "::set-output name=matrix-json::$json"
 
   setup-dev-env:
+    # TODO: Cache
     name: Setup development environment
-    needs: setup-build-matrix
-
-  build:
-    name: Build
     needs: setup-build-matrix
 
     strategy:
@@ -58,5 +55,15 @@ jobs:
         with:
           compiler: ${{ matrix.compiler }}
 
+  build:
+    name: Build
+    needs: setup-dev-env
+
+    strategy:
+      matrix: ${{ fromJson(needs.setup-build-matrix.outputs.matrix-json) }}
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
       - name: Dub build
         run: dub build
