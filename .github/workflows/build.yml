@@ -37,10 +37,38 @@ jobs:
 
           echo "::set-output name=matrix-json::$json"
 
+  define-dub-cache-paths:
+    name: Setup dub cache paths
+    runs-on: ubuntu-latest
+
+    outputs:
+      dub-cache-directories: ${{ steps.read-dub-cache-directories.outputs.dub-cache-directories }}
+
+    steps:
+      - name: Checkout PR `.github` directory
+        uses: snow-actions/sparse-checkout@v1.1.0
+        with:
+          patterns: |
+            .github
+
+      - name: Read dub cache directories
+        id: read-dub-cache-directories
+        working-directory: ./.github/workflows
+        run: |
+          json="$(cat dub-cache-directories.json)"
+
+          # https://github.community/t/set-output-truncates-multiline-strings/16852/3
+          # The following lines are only required for multi line json
+          json="${json//'%'/'%25'}"
+          json="${json//$'\n'/'%0A'}"
+          json="${json//$'\r'/'%0D'}"
+
+          echo "::set-output name=dub-cache-directories::$json"
+
 
   upgrade-d-sources:
     name: Upgrade D sources
-    needs: setup-build-matrix
+    needs: define-dub-cache-paths
     runs-on: ubuntu-latest
 
     steps:
