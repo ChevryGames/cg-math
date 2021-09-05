@@ -28,6 +28,7 @@ last_command_failed=$?
 
 if [[ ${last_command_failed} ]]; then
   print_error "D compiler \"${DC}\" failed to supply its version."
+  ${DC} --version
   exit 2
 fi
 
