@@ -3,18 +3,24 @@
 set -o pipefail
 
 RED='\033[0;31m'
+YELLOW='\033[0;33m'
 COLORLESS='\033[0m'
 
 print_error() {
-  local error_message="$1"
-  echo >&2 -e "${RED}Error:${COLORLESS} ${error_message}"
+  local message="$1"
+  echo >&2 -e "${RED}Error:${COLORLESS} ${message}"
+}
+
+print_info() {
+  local message="$1"
+  echo -e "${YELLOW}Info:${COLORLESS} ${message}"
 }
 
 if [[ -v ${DC} ]]; then
   print_error "D compiler \"${DC}\" (\"DC\" environment variable) not found."
   exit 1
 else
-  echo "Info: DC=${DC}"
+  print_info "DC=${DC}"
 fi
 
 dc_version_str="$(${DC} --version)"
