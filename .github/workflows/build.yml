@@ -74,7 +74,7 @@ jobs:
     steps:
       - name: Install D compiler
         id: install_d_compiler
-        uses: dlang_community/setup-dlang@v1
+        uses: dlang-community/setup-dlang@v1
         with:
           compiler: dmd_latest
 
