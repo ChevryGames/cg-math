@@ -25,7 +25,7 @@ jobs:
 
       - name: Read build matrix
         id: read_matrix
-        working-directory: './.github/workflows/config/build'
+        working-directory: ./.github/workflows/config/build
         run: |
           json="$(cat build_matrix.json)"
 
@@ -53,7 +53,7 @@ jobs:
 
       - name: Read dub cache directories
         id: read_dub_cache_directories
-        working-directory: './.github/workflows/config/build'
+        working-directory: ./.github/workflows/config/build
         run: |
           json="$(cat dub_cache_directories.json)"
 
