@@ -82,7 +82,11 @@ jobs:
         id: get_d_compiler_version
         run: |
           dc_version_str="$(${DC} --version)"
+          echo "${dc_version_str}"
+
           dc_version_line_str="$(${dc_version_str} | grep -i -E -o -m1 "D compiler [v\(][0-9]+\.[0-9]+\.[0-9]+[-\)]")"
+          echo "${dc_version_line_str}"
+
           dc_version="$(${dc_version_line_str} | grep -i -E -o "[0-9]+\.[0-9]+\.[0-9]+")"
           echo "::set-output name=dc_version::$dc_version"
 
