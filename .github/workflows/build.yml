@@ -84,10 +84,7 @@ jobs:
       - name: Get D compiler version
         id: get_d_compiler_version
         working-directory: ./.github/workflows/config/build
-        run: |
-          pwd
-          ls -la
-          echo "::set-output name=dc_version::$(./get_d_compiler_version.sh)"
+        run: echo "::set-output name=dc_version::$(./get_d_compiler_version.sh)"
 
       - name: Cache dub system cache
         id: cache_dub_system_cache
