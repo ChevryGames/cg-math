@@ -108,7 +108,7 @@ jobs:
         with:
           default_author: github_actions
           pull_strategy: '--no-ff'
-          message: '${{ GITHUB_WORKFLOW }}.${{ GITHUB_JOB }}: Upgrade D code using `dfix`'
+          message: '${{ env.GITHUB_WORKFLOW }}.${{ env.GITHUB_JOB }}: Upgrade D code using `dfix`'
 
   build:
     name: Build
