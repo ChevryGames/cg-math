@@ -83,20 +83,20 @@ jobs:
         uses: actions/cache@v2
         with:
           path: |
-            ${{ format('needs.read-dub-cache-directories.outputs.dub-cache-directories.{0}.local', runner.os ) }}
+            ${{ format('needs.read-dub-cache-directories.outputs.dub-cache-directories.{0}.user', runner.os ) }}
           key: ${{ runner.os }}-${{ steps.install-d-compiler.with.compiler }}-dub-cache-directories
 
       - name: Fetch dfix
-        run: dub fetch dfix -v --cache=local
+        run: dub fetch dfix -v --cache=user
 
       - name: Build dfix
-        run: dub build dfix -v --build=release --non-interactive --cache=local
+        run: dub build dfix -v --build=release --non-interactive --cache=user
 
       - name: Checkout PR
         uses: actions/checkout@v2
 
       - name: Run dfix
-        run: dub run dfix -v --build=release --non-interactive --cache=local -- .
+        run: dub run dfix -v --build=release --non-interactive --cache=user -- .
 
       - name: Commit and push changes
         uses: EndBug/add-and-commit@v7
