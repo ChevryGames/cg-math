@@ -5,7 +5,7 @@ set -o pipefail
 RED='\033[0;31m'
 COLORLESS='\033[0m'
 
-function print_error () {
+function print_error() {
   local error_message="$1"
   echo >&2 -e "${RED}Error:${COLORLESS} ${error_message}."
 }
