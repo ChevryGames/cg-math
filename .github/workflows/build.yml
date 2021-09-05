@@ -80,16 +80,8 @@ jobs:
 
       - name: Get D compiler version
         id: get_d_compiler_version
-        run: |
-          dc_version_str="$(${DC} --version)"
-          echo "${dc_version_str}"
-
-          echo "${dc_version_str}" \| grep -i -E -o -m1 "D compiler [v\(][0-9]+\.[0-9]+\.[0-9]+[-\)]"
-          dc_version_line_str="$(echo -n "${dc_version_str}" \| grep -i -E -o -m1 "D compiler [v\(][0-9]+\.[0-9]+\.[0-9]+[-\)]")"
-          echo "${dc_version_line_str}"
-
-          dc_version="$(echo -n "${dc_version_line_str}" \| grep -i -E -o "[0-9]+\.[0-9]+\.[0-9]+")"
-          echo "::set-output name=dc_version::$dc_version"
+        working-directory: ./.github/workflows/config/build
+        run: echo "::set-output name=dc_version::$(./get_d_compiler_version.sh)"
 
       - name: Cache dub system cache
         id: cache_dub_system_cache
