@@ -85,13 +85,13 @@ jobs:
         id: get_d_compiler_version
         working-directory: ./.github/workflows/config/build
         run: |
-          dc_version="$(./get_d_compiler_version.sh)"
+          ./get_d_compiler_version.sh
           last_command_failed=$?
 
           if [[ last_command_failed ]]; then
             exit "${last_command_failed}"
           else
-            echo "::set-output name=dc_version::${dc_version}"
+            echo "::set-output name=dc_version::${DC_VERSION}"
           fi
 
       - name: Cache dub system cache

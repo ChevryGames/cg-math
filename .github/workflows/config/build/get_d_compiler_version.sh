@@ -39,7 +39,7 @@ if [[ ${last_command_failed} ]]; then
   exit 3
 fi
 
-dc_version="$(echo "${dc_version_line_str}" | grep -i -E -o "[0-9]+\.[0-9]+\.[0-9]+")"
+DC_VERSION="$(echo "${dc_version_line_str}" | grep -i -E -o "[0-9]+\.[0-9]+\.[0-9]+")"
 last_command_failed=$?
 
 if [[ ${last_command_failed} ]]; then
@@ -47,4 +47,4 @@ if [[ ${last_command_failed} ]]; then
   exit 4
 fi
 
-echo "${dc_version}"
+export DC_VERSION
