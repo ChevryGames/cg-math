@@ -118,5 +118,8 @@ jobs:
         with:
           compiler: ${{ matrix.compiler }}
 
+      - name: Checkout PR
+        uses: actions/checkout@v2
+
       - name: Dub build
         run: dub build
