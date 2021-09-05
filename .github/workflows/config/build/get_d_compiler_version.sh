@@ -26,7 +26,7 @@ fi
 dc_version_str="$(${DC} --version)"
 last_command_failed=$?
 
-if [[ ${last_command_failed} ]]; then
+if [[ ${last_command_failed} != 0 ]]; then
   print_error "D compiler \"${DC}\" failed to supply its version."
   ${DC} --version
   exit 2
@@ -35,7 +35,7 @@ fi
 dc_version_line_str="$(echo "${dc_version_str}" | grep -i -E -o -m1 "D compiler [v\(][0-9]+\.[0-9]+\.[0-9]+[-\)]")"
 last_command_failed=$?
 
-if [[ ${last_command_failed} ]]; then
+if [[ ${last_command_failed} != 0 ]]; then
   print_error "Failed to find a string line supplied by \"${DC}\" which contains the D compiler's version."
   exit 3
 fi
@@ -43,7 +43,7 @@ fi
 DC_VERSION="$(echo "${dc_version_line_str}" | grep -i -E -o "[0-9]+\.[0-9]+\.[0-9]+")"
 last_command_failed=$?
 
-if [[ ${last_command_failed} ]]; then
+if [[ ${last_command_failed} != 0 ]]; then
   print_error "Failed to extract the D compiler's (\"${DC}\") version from a string line previously found which was supposed to contain it."
   exit 4
 fi
