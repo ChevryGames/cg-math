@@ -81,7 +81,7 @@ jobs:
       - name: Get D compiler version
         id: get_d_compiler_version
         run:
-          dc_version="$(basename ${DC%.*})"
+          dc_version="$($DC --version | grep -i -E -o -m1 "D compiler [v\(][0-9]+\.[0-9]+\.[0-9]+[-\)]" | grep -i -E -o "[0-9]+\.[0-9]+\.[0-9]+")"
           echo "::set-output name=dc_version::$dc_version"
 
       - name: Cache dub system cache
