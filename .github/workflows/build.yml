@@ -9,12 +9,12 @@ defaults:
     shell: bash
 
 jobs:
-  setup-build-matrix:
+  setup_build_matrix:
     name: Setup build matrix
     runs-on: ubuntu-latest
 
     outputs:
-      matrix-json: ${{ steps.read-matrix.outputs.matrix-json }}
+      matrix-json: ${{ steps.read_matrix.outputs.matrix_json }}
 
     steps:
       - name: Checkout PR `.github` directory
@@ -24,10 +24,10 @@ jobs:
             .github
 
       - name: Read build matrix
-        id: read-matrix
+        id: read_matrix
         working-directory: ./.github/workflows
         run: |
-          json="$(cat build-matrix.json)"
+          json="$(cat build_matrix.json)"
 
           # https://github.community/t/set-output-truncates-multiline-strings/16852/3
           # The following lines are only required for multi line json
@@ -35,14 +35,14 @@ jobs:
           json="${json//$'\n'/'%0A'}"
           json="${json//$'\r'/'%0D'}"
 
-          echo "::set-output name=matrix-json::$json"
+          echo "::set-output name=matrix_json::$json"
 
-  define-dub-cache-paths:
+  define_dub_cache_paths:
     name: Setup dub cache paths
     runs-on: ubuntu-latest
 
     outputs:
-      dub-cache-directories: ${{ steps.read-dub-cache-directories.outputs.dub-cache-directories }}
+      dub_cache_directories: ${{ steps.read_dub_cache_directories.outputs.dub_cache_directories }}
 
     steps:
       - name: Checkout PR `.github` directory
@@ -52,10 +52,10 @@ jobs:
             .github
 
       - name: Read dub cache directories
-        id: read-dub-cache-directories
+        id: read_dub_cache_directories
         working-directory: ./.github/workflows
         run: |
-          json="$(cat dub-cache-directories.json)"
+          json="$(cat dub_cache_directories.json)"
 
           # https://github.community/t/set-output-truncates-multiline-strings/16852/3
           # The following lines are only required for multi line json
@@ -63,34 +63,34 @@ jobs:
           json="${json//$'\n'/'%0A'}"
           json="${json//$'\r'/'%0D'}"
 
-          echo "::set-output name=dub-cache-directories::$json"
+          echo "::set-output name=dub_cache_directories::$json"
 
 
-  upgrade-d-sources:
+  upgrade_d_sources:
     name: Upgrade D sources
-    needs: define-dub-cache-paths
+    needs: define_dub_cache_paths
     runs-on: ubuntu-latest
 
     steps:
       - name: Install D compiler
-        id: install-d-compiler
-        uses: dlang-community/setup-dlang@v1
+        id: install_d_compiler
+        uses: dlang_community/setup-dlang@v1
         with:
-          compiler: dmd-latest
+          compiler: dmd_latest
 
       - name: Get D compiler version
-        id: get-d-compiler-version
+        id: get_d_compiler_version
         run:
           dc_version="$(basename ${DC%.*})"
           echo "::set-output name=dc_version::$dc_version"
 
       - name: Cache dub system cache
-        id: cache-dub-system-cache
+        id: cache_dub_system_cache
         uses: actions/cache@v2
         with:
           path: |
-            ${{ format('needs.read-dub-cache-directories.outputs.dub-cache-directories.{0}.user', runner.os ) }}
-          key: ${{ runner.os }}-${{ env.dc }}-${{ steps.get-d-compiler-version.outputs.dc_version }}-dub-cache-directories
+            ${{ format('needs.read_dub_cache_directories.outputs.dub_cache_directories.{0}.user', runner.os ) }}
+          key: ${{ runner.os }}-${{ env.dc }}-${{ steps.get_d_compiler_version.outputs.dc_version }}-dub_cache_directories
 
       - name: Fetch dfix
         run: dub fetch dfix -v --cache=user
@@ -112,11 +112,11 @@ jobs:
 
   build:
     name: Build
-    needs: [ setup-build-matrix, upgrade-d-sources ]
+    needs: [ setup_build_matrix, upgrade_d_sources ]
     runs-on: ${{ matrix.os }}
 
     strategy:
-      matrix: ${{ fromJson(needs.setup-build-matrix.outputs.matrix-json) }}
+      matrix: ${{ fromJson(needs.setup_build_matrix.outputs.matrix_json) }}
 
     steps:
       - name: Install D compiler
