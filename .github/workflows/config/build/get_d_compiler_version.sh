@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -o pipefail
+
 if [[ -v ${DC} ]]; then
   >&2 echo "Error: D compiler \"${DC}\" (\"DC\" environment variable) not found."
   exit 1
