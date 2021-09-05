@@ -50,16 +50,16 @@ jobs:
           compiler: dmd-latest
 
       - name: Fetch dfix
-        run: dub fetch dfix -v --cache=system
+        run: dub fetch dfix -v --cache=user
 
       - name: Build dfix
-        run: dub build dfix -v --build=release --non-interactive --cache=system
+        run: dub build dfix -v --build=release --non-interactive --cache=user
 
       - name: Checkout PR
         uses: actions/checkout@v2
 
       - name: Run dfix
-        run: dub run dfix -v --build=release --non-interactive --cache=system -- .
+        run: dub run dfix -v --build=release --non-interactive --cache=user -- .
 
       - name: Commit and push changes
         uses: EndBug/add-and-commit@v7
