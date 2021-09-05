@@ -78,6 +78,15 @@ jobs:
         with:
           compiler: dmd-latest
 
+      - name: Cache dub system cache
+        id: cache-dub-system-cache
+        uses: actions/cache@v2
+        with:
+          # TODO: RECURSIVE SUBSTITUTION MIGHT NOT WORK!
+          path: |
+            ${{ needs.read-dub-cache-directories.outputs.dub-cache-directories.${{ runner.os }}.local }}
+          key: ${{ runner.os }}-${{ steps.install-d-compiler.with.compiler }}-dub-cache-directories
+
       - name: Fetch dfix
         run: dub fetch dfix -v --cache=local
 
