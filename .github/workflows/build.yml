@@ -20,8 +20,7 @@ jobs:
       - name: Checkout PR `.github` directory
         uses: snow-actions/sparse-checkout@v1.1.0
         with:
-          patterns: |
-            .github
+          patterns: .github
 
       - name: Read build matrix
         id: read_matrix
@@ -48,8 +47,7 @@ jobs:
       - name: Checkout PR `.github` directory
         uses: snow-actions/sparse-checkout@v1.1.0
         with:
-          patterns: |
-            .github
+          patterns: .github
 
       - name: Read dub cache directories
         id: read_dub_cache_directories
@@ -78,10 +76,10 @@ jobs:
         with:
           compiler: dmd-latest
 
-      - name: DEBUG
-        run: |
-          pwd
-          ls -la
+      - name: Checkout PR `.github` directory
+        uses: snow-actions/sparse-checkout@v1.1.0
+        with:
+          patterns: .github
 
       - name: Get D compiler version
         id: get_d_compiler_version
