@@ -83,7 +83,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: |
-            ${{ format('needs.read-dub-cache-directories.outputs.dub-cache-directories.{0}.local', ${{ runner.os }} ) }}
+            ${{ format('needs.read-dub-cache-directories.outputs.dub-cache-directories.{0}.local', runner.os ) }}
           key: ${{ runner.os }}-${{ steps.install-d-compiler.with.compiler }}-dub-cache-directories
 
       - name: Fetch dfix
