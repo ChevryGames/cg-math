@@ -78,12 +78,6 @@ jobs:
         with:
           compiler: dmd-latest
 
-      - name: Get D compiler name
-        id: get-d-compiler-name
-        run:
-          dc_name="$(basename ${DC%.*})"
-          echo "::set-output name=dc_name::$dc_name"
-
       - name: Get D compiler version
         id: get-d-compiler-version
         run:
@@ -96,7 +90,7 @@ jobs:
         with:
           path: |
             ${{ format('needs.read-dub-cache-directories.outputs.dub-cache-directories.{0}.user', runner.os ) }}
-          key: ${{ runner.os }}-${{ steps.get-d-compiler-name.outputs.dc_name }}-${{ steps.get-d-compiler-version.outputs.dc_version }}-dub-cache-directories
+          key: ${{ runner.os }}-${{ env.dc }}-${{ steps.get-d-compiler-version.outputs.dc_version }}-dub-cache-directories
 
       - name: Fetch dfix
         run: dub fetch dfix -v --cache=user
