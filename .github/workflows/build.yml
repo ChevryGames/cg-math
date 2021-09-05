@@ -78,6 +78,11 @@ jobs:
         with:
           compiler: dmd-latest
 
+      - name: DEBUG
+        run: |
+          pwd
+          ls -la
+
       - name: Get D compiler version
         id: get_d_compiler_version
         working-directory: ./.github/workflows/config/build
