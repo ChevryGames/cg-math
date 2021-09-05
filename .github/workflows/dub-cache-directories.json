@@ -1,10 +1,10 @@
 {
-  "linux": {
+  "Linux": {
     "system": "/var/lib/dub/",
     "user": "~/.dub/",
     "local": "~/.dub/"
   },
-  "windows": {
+  "Windows": {
     "system": "C:/ProgramData/dub/",
     "user": "~/AppData/Roaming/dub/",
     "local": "~/AppData/Local/dub/"
