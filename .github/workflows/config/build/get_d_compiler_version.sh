@@ -16,7 +16,7 @@ print_info() {
   echo -e "${YELLOW}Info:${COLORLESS} ${message}"
 }
 
-if [[ -v ${DC} ]]; then
+if [[ -z ${DC:+null} ]]; then
   print_error "D compiler \"${DC}\" (\"DC\" environment variable) not found."
   exit 1
 else
