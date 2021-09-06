@@ -69,6 +69,10 @@ jobs:
     needs: define_dub_cache_paths
     runs-on: ubuntu-latest
 
+    outputs:
+      # Where DC = the D compiler for sequential jobs that run on the same OS.
+      reference_dc_version: ${{ steps.get_dc_version.outputs.dc_version }}
+
     steps:
       - name: Install D compiler
         id: install_d_compiler
@@ -82,10 +86,10 @@ jobs:
           patterns: .github
 
       - name: Get D compiler version
-        id: get_d_compiler_version
+        id: get_dc_version
         working-directory: ./.github/workflows/config/build
         run: |
-          ./get_d_compiler_version.sh
+          ./get_dc_version.sh
           last_command_failed=$?
 
           if [[ last_command_failed ]]; then
@@ -100,7 +104,7 @@ jobs:
         with:
           path: |
             ${{ format('needs.read_dub_cache_directories.outputs.dub_cache_directories.{0}.user', runner.os ) }}
-          key: ${{ runner.os }}-${{ env.DC }}-${{ steps.get_d_compiler_version.outputs.dc_version }}-dub_cache_directories
+          key: ${{ runner.os }}-${{ env.DC }}-${{ steps.get_dc_version.outputs.reference_dc_version }}-dub_cache_directories
 
       - name: Fetch dfix
         run: dub fetch dfix -v --cache=user
