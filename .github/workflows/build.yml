@@ -103,8 +103,7 @@ jobs:
         id: cache_dub_system_cache
         uses: actions/cache@v2
         with:
-          path: |
-            ${{ format('needs.read_dub_cache_directories.outputs.dub_cache_directories.{0}.user', runner.os ) }}
+          path: ${{ format('needs.define_dub_cache_paths.outputs.dub_cache_directories.{0}.user', runner.os ) }}
           key: ${{ runner.os }}-${{ env.DC }}-${{ steps.get_d_compiler_version.outputs.d_compiler_version }}-dub_cache_directories
 
       - name: Fetch dfix
