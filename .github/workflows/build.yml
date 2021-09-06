@@ -89,7 +89,7 @@ jobs:
         id: get_d_compiler_version
         working-directory: ./.github/workflows/config/build
         run: |
-          ./get_dc_version.sh
+          source ./get_dc_version.sh
           last_command_failed=$?
 
           if [[ ${last_command_failed} != 0 ]]; then
