@@ -17,7 +17,7 @@ print_info() {
 }
 
 if [[ -z ${DC:+null} ]]; then
-  print_error "D compiler \"${DC}\" (\"DC\" environment variable) not found."
+  print_error "D compiler \`${DC}\` (\"DC\" environment variable) not found."
   exit 1
 else
   print_info "DC=${DC}"
@@ -27,7 +27,7 @@ dc_version_str="$(${DC} --version)"
 last_command_failed=$?
 
 if [[ ${last_command_failed} != 0 ]]; then
-  print_error "D compiler \"${DC}\" failed to supply its version."
+  print_error "D compiler \`${DC}\` failed to supply its version."
   exit 2
 fi
 
@@ -35,7 +35,7 @@ dc_version_line_str="$(echo "${dc_version_str}" | grep -i -E -o -m1 "(D compiler
 last_command_failed=$?
 
 if [[ ${last_command_failed} != 0 ]]; then
-  print_error "Failed to find a string line supplied by \"${DC}\" which contains the D compiler's version."
+  print_error "Failed to find a string line supplied by \`${DC}\` which contains the D compiler's version."
   exit 3
 fi
 
@@ -43,7 +43,7 @@ DC_VERSION="$(echo "${dc_version_line_str}" | grep -i -E -o "[0-9]+\.[0-9]+\.[0-
 last_command_failed=$?
 
 if [[ ${last_command_failed} != 0 ]]; then
-  print_error "Failed to extract the D compiler's (\"${DC}\") version from a string line previously found which was supposed to contain it."
+  print_error "Failed to extract the D compiler's (\`${DC}\`) version from a string line previously found which was supposed to contain it."
   exit 4
 else
   print_info "DC_VERSION=${DC_VERSION}"
