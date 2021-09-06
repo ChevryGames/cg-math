@@ -99,8 +99,7 @@ jobs:
             echo -e "\033[0;32mSuccess:\033[0m Set the current step output \`d_compiler_version=${DC_VERSION}\`"
           fi
 
-      - name: Cache dub system cache
-        id: cache_dub_system_cache
+      - name: Cache dub's cache
         uses: actions/cache@v2
         with:
           path: ${{ format('needs.define_dub_cache_paths.outputs.dub_cache_directories.{0}.user', runner.os ) }}
