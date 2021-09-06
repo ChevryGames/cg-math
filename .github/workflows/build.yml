@@ -92,7 +92,7 @@ jobs:
           ./get_dc_version.sh
           last_command_failed=$?
 
-          if [[ last_command_failed ]]; then
+          if [[ ${last_command_failed} != 0 ]]; then
             exit "${last_command_failed}"
           else
             echo "::set-output name=d_compiler_version::${DC_VERSION}"
