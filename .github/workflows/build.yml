@@ -96,6 +96,7 @@ jobs:
             exit "${last_command_failed}"
           else
             echo "::set-output name=d_compiler_version::${DC_VERSION}"
+            echo -e "\033[0;32mSuccess:\033[0m Set the current step output \`d_compiler_version=${DC_VERSION}\`"
           fi
 
       - name: Cache dub system cache
