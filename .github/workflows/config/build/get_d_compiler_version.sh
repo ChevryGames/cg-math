@@ -32,7 +32,7 @@ if [[ ${last_command_failed} != 0 ]]; then
 fi
 
 print_info "${dc_version_str}"
-dc_version_line_str="$(echo "${dc_version_str}" | grep -i -E -o -m1 "(D compiler)(.*)([0-9]+\.[0-9]+\.[0-9]+)"
+dc_version_line_str="$(echo "${dc_version_str}" | grep -i -E -o -m1 "(D compiler)(.*)([0-9]+\.[0-9]+\.[0-9]+)")"
 last_command_failed=$?
 
 if [[ ${last_command_failed} != 0 ]]; then
