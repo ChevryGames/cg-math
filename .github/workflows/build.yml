@@ -71,7 +71,7 @@ jobs:
 
     outputs:
       # Where DC = the D compiler for sequential jobs that run on the same OS.
-      reference_dc_version: ${{ steps.get_dc_version.outputs.dc_version }}
+      reference_d_compiler_version: ${{ steps.get_d_compiler_version.outputs.d_compiler_version }}
 
     steps:
       - name: Install D compiler
@@ -86,7 +86,7 @@ jobs:
           patterns: .github
 
       - name: Get D compiler version
-        id: get_dc_version
+        id: get_d_compiler_version
         working-directory: ./.github/workflows/config/build
         run: |
           ./get_dc_version.sh
@@ -95,7 +95,7 @@ jobs:
           if [[ last_command_failed ]]; then
             exit "${last_command_failed}"
           else
-            echo "::set-output name=dc_version::${DC_VERSION}"
+            echo "::set-output name=d_compiler_version::${DC_VERSION}"
           fi
 
       - name: Cache dub system cache
@@ -104,7 +104,7 @@ jobs:
         with:
           path: |
             ${{ format('needs.read_dub_cache_directories.outputs.dub_cache_directories.{0}.user', runner.os ) }}
-          key: ${{ runner.os }}-${{ env.DC }}-${{ steps.get_dc_version.outputs.reference_dc_version }}-dub_cache_directories
+          key: ${{ runner.os }}-${{ env.DC }}-${{ steps.get_d_compiler_version.outputs.reference_d_compiler_version }}-dub_cache_directories
 
       - name: Fetch dfix
         run: dub fetch dfix -v --cache=user
