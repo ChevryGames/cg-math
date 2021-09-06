@@ -45,6 +45,8 @@ last_command_failed=$?
 if [[ ${last_command_failed} != 0 ]]; then
   print_error "Failed to extract the D compiler's (\"${DC}\") version from a string line previously found which was supposed to contain it."
   exit 4
+else
+  print_info "DC_VERSION=${DC_VERSION}"
 fi
 
 export DC_VERSION
