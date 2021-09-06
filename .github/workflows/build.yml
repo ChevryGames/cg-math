@@ -102,7 +102,7 @@ jobs:
       - name: Cache dub's cache
         uses: actions/cache@v2
         with:
-          path: ${{ needs.define_dub_cache_paths.outputs.dub_cache_directories.format('{0}', runner.os).user }}
+          path: ${{ fromJSON(needs.define_dub_cache_paths.outputs.dub_cache_directories)[format('{0}', runner.os)].user }}
           key: ${{ runner.os }}-${{ env.DC }}-${{ steps.get_d_compiler_version.outputs.d_compiler_version }}-dub_cache_directories
 
       - name: Fetch dfix
