@@ -1,0 +1,14 @@
+{
+  "Linux": {
+    "system": "/var/lib/dub/",
+    "user": "~/.dub/"
+  },
+  "Windows": {
+    "system": "C:/ProgramData/dub/",
+    "user": "~/AppData/Local/dub"
+  },
+  "macOS": {
+    "system": "/var/lib/dub/",
+    "user": "~/.dub/"
+  }
+}

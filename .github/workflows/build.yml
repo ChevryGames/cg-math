@@ -1,29 +1,145 @@
-name: Build D (dlang) Source Files
+name: Build D sources
 
 on:
   pull_request:
     types: [ synchronize ]
 
+defaults:
+  run:
+    shell: bash
 
 jobs:
-  build:
-    name: Dub build
+  setup_build_matrix:
+    name: Setup build matrix
+    runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        os: [ ubuntu-latest, windows-latest, macOS-latest ]
-        compiler: [ dmd-latest, ldc-latest ]
-
-    runs-on: ${{ matrix.os }}
+    outputs:
+      matrix_json: ${{ steps.read_matrix.outputs.matrix_json }}
 
     steps:
+      - name: Checkout PR `.github` directory
+        uses: snow-actions/sparse-checkout@v1.1.0
+        with:
+          patterns: .github
+
+      - name: Read build matrix
+        id: read_matrix
+        working-directory: ./.github/workflows/config/build
+        run: |
+          json="$(cat build_matrix.json)"
+
+          # https://github.community/t/set-output-truncates-multiline-strings/16852/3
+          # The following lines are only required for multi line json
+          json="${json//'%'/'%25'}"
+          json="${json//$'\n'/'%0A'}"
+          json="${json//$'\r'/'%0D'}"
+
+          echo "::set-output name=matrix_json::$json"
+
+  define_dub_cache_paths:
+    name: Setup dub cache paths
+    runs-on: ubuntu-latest
+
+    outputs:
+      dub_cache_directories: ${{ steps.read_dub_cache_directories.outputs.dub_cache_directories }}
+
+    steps:
+      - name: Checkout PR `.github` directory
+        uses: snow-actions/sparse-checkout@v1.1.0
+        with:
+          patterns: .github
+
+      - name: Read dub cache directories
+        id: read_dub_cache_directories
+        working-directory: ./.github/workflows/config/build
+        run: |
+          json="$(cat dub_cache_directories.json)"
+
+          # https://github.community/t/set-output-truncates-multiline-strings/16852/3
+          # The following lines are only required for multi line json
+          json="${json//'%'/'%25'}"
+          json="${json//$'\n'/'%0A'}"
+          json="${json//$'\r'/'%0D'}"
+
+          echo "::set-output name=dub_cache_directories::$json"
+
+
+  upgrade_d_sources:
+    name: Upgrade D sources
+    needs: define_dub_cache_paths
+    runs-on: ubuntu-latest
+
+    outputs:
+      # Where DC = the D compiler for sequential jobs that run on the same OS.
+      reference_d_compiler_version: ${{ steps.get_d_compiler_version.outputs.d_compiler_version }}
+
+    steps:
+      - name: Install D compiler
+        id: install_d_compiler
+        uses: dlang-community/setup-dlang@v1
+        with:
+          compiler: dmd-latest
+
+      - name: Checkout PR `.github` directory
+        uses: snow-actions/sparse-checkout@v1.1.0
+        with:
+          patterns: .github
+
+      - name: Get D compiler version
+        id: get_d_compiler_version
+        working-directory: ./.github/workflows/config/build
+        run: |
+          source ./get_dc_version.sh
+          last_command_failed=$?
+
+          if [[ ${last_command_failed} != 0 ]]; then
+            exit "${last_command_failed}"
+          else
+            echo "::set-output name=d_compiler_version::${DC_VERSION}"
+            echo -e "\033[0;32mSuccess:\033[0m Set the current step output \`d_compiler_version=${DC_VERSION}\`"
+          fi
+
+      - name: Cache dub's cache
+        uses: actions/cache@v2
+        with:
+          path: ${{ fromJSON(needs.define_dub_cache_paths.outputs.dub_cache_directories)[format('{0}', runner.os)].user }}
+          key: ${{ runner.os }}-${{ env.DC }}-${{ steps.get_d_compiler_version.outputs.d_compiler_version }}-dub_cache_directories
+
+      - name: Fetch dfix
+        run: dub fetch dfix -v --cache=user
+
+      - name: Build dfix
+        run: dub build dfix -v --build=release --non-interactive --cache=user
+
       - name: Checkout PR
         uses: actions/checkout@v2
 
+      - name: Run dfix
+        run: dub run dfix -v --build=release --non-interactive --cache=user -- .
+
+      - name: Commit and push changes
+        uses: EndBug/add-and-commit@v7
+        with:
+          default_author: github_actions
+          pull_strategy: '--no-ff'
+          message: '${{ env.GITHUB_WORKFLOW }}.${{ env.GITHUB_JOB }}: Upgrade D code using `dfix`'
+
+  build:
+    name: Build
+    needs: [ setup_build_matrix, upgrade_d_sources ]
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix: ${{ fromJson(needs.setup_build_matrix.outputs.matrix_json) }}
+
+    steps:
       - name: Install D compiler
         uses: dlang-community/setup-dlang@v1
         with:
           compiler: ${{ matrix.compiler }}
 
-      - name: Build
+      - name: Checkout PR
+        uses: actions/checkout@v2
+
+      - name: Dub build
         run: dub build
