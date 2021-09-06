@@ -104,7 +104,7 @@ jobs:
         with:
           path: |
             ${{ format('needs.read_dub_cache_directories.outputs.dub_cache_directories.{0}.user', runner.os ) }}
-          key: ${{ runner.os }}-${{ env.DC }}-${{ steps.get_d_compiler_version.outputs.reference_d_compiler_version }}-dub_cache_directories
+          key: ${{ runner.os }}-${{ env.DC }}-${{ steps.get_d_compiler_version.outputs.d_compiler_version }}-dub_cache_directories
 
       - name: Fetch dfix
         run: dub fetch dfix -v --cache=user
